@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\LAP TRING NET NANG CAO\\WebBanNoiThat\\WebBanNoiThat\\WebBanNoiThat.csproj": {}
+    "C:\\Users\\phanv\\OneDrive\\Máy tính\\WebNoiThat_2\\WebBanNoiThat\\WebBanNoiThat\\WebBanNoiThat\\WebBanNoiThat.csproj": {}
   },
   "projects": {
-    "D:\\LAP TRING NET NANG CAO\\WebBanNoiThat\\WebBanNoiThat\\WebBanNoiThat.csproj": {
+    "C:\\Users\\phanv\\OneDrive\\Máy tính\\WebNoiThat_2\\WebBanNoiThat\\WebBanNoiThat\\WebBanNoiThat\\WebBanNoiThat.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\LAP TRING NET NANG CAO\\WebBanNoiThat\\WebBanNoiThat\\WebBanNoiThat.csproj",
+        "projectUniqueName": "C:\\Users\\phanv\\OneDrive\\Máy tính\\WebNoiThat_2\\WebBanNoiThat\\WebBanNoiThat\\WebBanNoiThat\\WebBanNoiThat.csproj",
         "projectName": "WebBanNoiThat",
-        "projectPath": "D:\\LAP TRING NET NANG CAO\\WebBanNoiThat\\WebBanNoiThat\\WebBanNoiThat.csproj",
-        "packagesPath": "C:\\Users\\dung2\\.nuget\\packages\\",
-        "outputPath": "D:\\LAP TRING NET NANG CAO\\WebBanNoiThat\\WebBanNoiThat\\obj\\",
+        "projectPath": "C:\\Users\\phanv\\OneDrive\\Máy tính\\WebNoiThat_2\\WebBanNoiThat\\WebBanNoiThat\\WebBanNoiThat\\WebBanNoiThat.csproj",
+        "packagesPath": "C:\\Users\\phanv\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\phanv\\OneDrive\\Máy tính\\WebNoiThat_2\\WebBanNoiThat\\WebBanNoiThat\\WebBanNoiThat\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\dung2\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\phanv\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -71,7 +71,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -83,7 +84,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }
