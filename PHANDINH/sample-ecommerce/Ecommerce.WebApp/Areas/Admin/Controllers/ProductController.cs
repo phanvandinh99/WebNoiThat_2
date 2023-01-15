@@ -14,7 +14,7 @@ namespace Ecommerce.WebApp.Areas.Admin.Controllers
     public class ProductController : Controller
     {
         private readonly DataDbContext _context;
-
+        
         public ProductController(DataDbContext context)
         {
             _context = context;
@@ -29,6 +29,7 @@ namespace Ecommerce.WebApp.Areas.Admin.Controllers
         }
 
         [Route("create")]
+        [HttpGet]
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
@@ -69,13 +70,13 @@ namespace Ecommerce.WebApp.Areas.Admin.Controllers
 
                 }
 
-                
                 return RedirectToAction(nameof(Index));
             }
             return View(model);
         }
 
         [Route("update/{id}")]
+        [HttpGet]
         public IActionResult Update(int id)
         {
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
@@ -121,7 +122,6 @@ namespace Ecommerce.WebApp.Areas.Admin.Controllers
                 return Redirect("/admin/product/update/" + id);
             }
             return Redirect("/admin/product/update/" + id);
-
         }
 
         [HttpGet("delete/{id}")]

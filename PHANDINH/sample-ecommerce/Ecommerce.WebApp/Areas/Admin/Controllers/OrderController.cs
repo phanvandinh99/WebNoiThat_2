@@ -3,6 +3,7 @@ using Ecommerce.Data.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Net.WebSockets;
 
 namespace Ecommerce.WebApp.Areas.Admin.Controllers
 {
@@ -23,31 +24,31 @@ namespace Ecommerce.WebApp.Areas.Admin.Controllers
         public async Task<IActionResult> Index(int status)
         {
             var item = (from order in _context.Orders
-                               orderby order.Id descending
-                               select new ListOrdersViewModel()
-                               {
-                                   OrderId = order.Id,
-                                   OrderDate = order.OrderDate,
-                                   OrderStatus = order.Status,
-                                   ShipAddress = order.ShipAddress,
-                                   ShipEmail = order.ShipEmail,
-                                   ShipName = order.ShipName,
-                                   ShipPhoneNumber = order.ShipPhoneNumber,
-                                   UserId = order.UserId,
-                                   Detail = (from d in _context.OrderDetails
-                                             where order.Id == d.OrderId
-                                             select new OrderDetailViewModel()
-                                             {
-                                                 OrderId = d.OrderId,
-                                                 Price = d.Price,
-                                                 ProductId = d.ProductId,
-                                                 Quantity = d.Quantity,
-                                                 Id = d.Id,
-                                                 Product = (from pr in _context.Products
-                                                            where d.ProductId == pr.Id
-                                                            select pr).FirstOrDefault(),
-                                             }).AsEnumerable()
-                               });
+                        orderby order.Id descending
+                        select new ListOrdersViewModel()
+                        {
+                            OrderId = order.Id,
+                            OrderDate = order.OrderDate,
+                            OrderStatus = order.Status,
+                            ShipAddress = order.ShipAddress,
+                            ShipEmail = order.ShipEmail,
+                            ShipName = order.ShipName,
+                            ShipPhoneNumber = order.ShipPhoneNumber,
+                            UserId = order.UserId,
+                            Detail = (from d in _context.OrderDetails
+                                      where order.Id == d.OrderId
+                                      select new OrderDetailViewModel()
+                                      {
+                                          OrderId = d.OrderId,
+                                          Price = d.Price,
+                                          ProductId = d.ProductId,
+                                          Quantity = d.Quantity,
+                                          Id = d.Id,
+                                          Product = (from pr in _context.Products
+                                                     where d.ProductId == pr.Id
+                                                     select pr).FirstOrDefault(),
+                                      }).AsEnumerable()
+                        });
             var items = await item.ToListAsync();
             switch (status)
             {
@@ -84,6 +85,21 @@ namespace Ecommerce.WebApp.Areas.Admin.Controllers
         {
             var order = await _context.Orders.FirstOrDefaultAsync(ord => ord.Id == orderId);
             order.Status = status;
+
+            #region Trường hợp hủy đơn => Hoàn lại số lượng
+            if (status == 0)
+            {
+                var order_soluong = _context.OrderDetails.Where(n => n.OrderId == orderId).ToList();
+                foreach(var item in order_soluong)
+                {
+                    var product_soluong = _context.Products.SingleOrDefault(n => n.Id == item.ProductId);
+                    product_soluong.Quantity = product_soluong.Quantity + item.Quantity;
+                    _context.Products.Update(product_soluong);
+                    await _context.SaveChangesAsync();
+                }
+            }
+            #endregion
+
             _context.Orders.Update(order);
             await _context.SaveChangesAsync();
 

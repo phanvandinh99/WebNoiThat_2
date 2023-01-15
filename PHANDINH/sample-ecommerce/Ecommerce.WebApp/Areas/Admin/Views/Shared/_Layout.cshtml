@@ -39,14 +39,14 @@
           <li class="nav-item nav-profile border-bottom">
             <a href="#" class="nav-link flex-column">
               <div class="nav-profile-image">
-                <img src="/admin/template/assets/images/faces/face1.jpg" alt="profile" />
+                            <img src="/client/img/logo.png" style="object-fit: contain;" alt="profile" />
                 <!--change to offline or busy as needed-->
               </div>
               @if (SignInManager.IsSignedIn(User))
                         {
                             <div class="nav-profile-text d-flex ml-0 mb-3 flex-column">
                                 <span class="font-weight-semibold mb-1 mt-2 text-center">@(user.FullName ?? user.UserName)</span>
-                                <span class="text-secondary icon-sm text-center">Administrator</span>
+                                <span class="text-secondary icon-sm text-center">Quản Trị</span>
                             </div>
                         }
                     </a>

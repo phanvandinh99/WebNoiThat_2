@@ -109,12 +109,14 @@
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                         <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                        <li>
+                                            <a href="#" onclick="onSubmit(@item.Id)"><i class="fa fa-shopping-cart"></i></a>
+                                            </li>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
                                     <h6><a href="/product/@item.Slug">@item.Name</a></h6>
-                                    <h5>@item.Price</h5>
+                                    <h5>@string.Format("{0:#,##}", item.Price) đ</h5>
                                 </div>
                             </div>
                         </div>
@@ -131,3 +133,72 @@
     </div>
 </section>
 <!-- Product Section End -->
+
+<script type="text/javascript">
+    function onSubmit(id) {
+
+        var productId = $("#productId_" + id).val();
+        var price = $("#price_" + id).val();
+        var quantity = $("#quantity_" + id).val();
+        var data = {
+            'productId': productId,
+            'price': price,
+            'quantity': quantity
+        }
+
+        var isIncrease = false;
+
+        $.ajax({
+            type: 'GET',
+            url: '/cart/check-item/' + id,
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            success: function (res) {
+                console.log(res);
+                if (res == true) {
+                    isIncrease = true;
+
+                } else {
+                    isIncrease = false;
+                }
+
+            },
+            error: function (error) {
+                console.log('Failed ');
+            }
+        })
+
+        $.ajax({
+            type: 'POST',
+            url: '/cart/add-to-cart',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: data,
+            success: function (result) {
+                Toastify({
+                    text: "Thêm vào giỏ hàng thành công!",
+                    duration: 3000,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: "left", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "linear-gradient(to right, #00b09b, #96c93d)",
+                    },
+                    onClick: function () { } // Callback after click
+                }).showToast();
+                var newCartNum = parseInt($("#cartNum").text()) + 1;
+                if (isIncrease) {
+                    $("#cartNum").text(newCartNum);
+                }
+            },
+            error: function (error) {
+                console.log('Failed ');
+                console.log(error.status);
+                if (error.status == 401) {
+                    window.location.href = "/dang-nhap";
+                }
+            }
+        })
+
+    }
+
+</script>
