@@ -42,7 +42,7 @@
                             <img src="/client/img/logo.png" style="object-fit: contain;" alt="profile" />
                 <!--change to offline or busy as needed-->
               </div>
-              @if (SignInManager.IsSignedIn(User))
+              @if (SignInManager.IsSignedIn(User)) 
                         {
                             <div class="nav-profile-text d-flex ml-0 mb-3 flex-column">
                                 <span class="font-weight-semibold mb-1 mt-2 text-center">@(user.FullName ?? user.UserName)</span>
@@ -159,12 +159,6 @@
         <!-- partial -->
         <div class="main-panel">
         @RenderBody()
-        <footer class="footer">
-        <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © eshop.com 2022</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Hieu Ho</span>
-        </div>
-    </footer>
         </div>
         <!-- main-panel ends -->
       </div>
